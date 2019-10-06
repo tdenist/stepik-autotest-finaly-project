@@ -13,8 +13,8 @@ class ProductPage(BasePage):
         # проверяем наличие сообщения о добавлении товара
         assert self.browser.find_element(*ProductPageLocators.MESSAGE_ADD_TO_BASKET), "Message add to basket is not presented"
         product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text
-        product_name_in_message = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME_IN_MESSAGE).text
-        assert product_name_in_message.find(product_name) != -1, "No product name in message add basket"
+        product_name_in_message = self.browser.find_element(*ProductPageLocators.MESSAGE_ADD_TO_BASKET).text
+        assert product_name_in_message == product_name, "No product name in message add basket"
 
     def get_product_price(self): # метод возвращает цену продукта
         product_price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE)
@@ -27,4 +27,4 @@ class ProductPage(BasePage):
         assert self.browser.find_element(*ProductPageLocators.MESSAGE_TOTAL_BASKET), "Message total basket is not presented"
         product_price_in_message = self.browser.find_element(*ProductPageLocators.MESSAGE_TOTAL_BASKET).text
         product_price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE).text
-        assert product_price_in_message.find(product_price) != -1, "No product price in the message"
+        assert product_price_in_message == product_price, "No product price in the message"
