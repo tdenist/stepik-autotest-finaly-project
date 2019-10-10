@@ -28,3 +28,9 @@ class ProductPage(BasePage):
         product_price_in_message = self.browser.find_element(*ProductPageLocators.MESSAGE_TOTAL_BASKET).text
         product_price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE).text
         assert product_price_in_message == product_price, "No product price in the message"
+
+    def should_not_be_success_message(self): # проверяем, что нет сообщения об успехе с помощью is_not_element_present
+        assert self.is_not_element_present(*ProductPageLocators.MESSAGE_ADD_TO_BASKET), "Message add to basket is presented, but should not be"
+
+    def should_disapper_success_message(self): # проверяем, что нет сообщения об успехе с помощью is_not_element_present
+        assert self.is_disappeared(*ProductPageLocators.MESSAGE_ADD_TO_BASKET), "Message add to basket is presented, but should not be"
