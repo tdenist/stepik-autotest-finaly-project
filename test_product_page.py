@@ -14,7 +14,6 @@ def test_guest_can_add_product_to_basket(browser):
     page.solve_quiz_and_get_code()   # ввод ответа на мат.выражение
     page.should_be_product_name_in_message_add_to_basket() # проверяем, что название товара в сообщении о добавлении товара, с тем, который добавили  
     page.should_be_product_price_in_message_add_to_basket() # проверяем, что в сообщении о стоимости корзины стоимость корзины совпадает с ценой товара
-    #time.sleep(10)
 
 @pytest.mark.xfail
 def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
@@ -57,3 +56,29 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     basket_page = BasketPage(browser, browser.current_url)    # инициализируем BasketPage в теле теста
     basket_page.should_not_be_product_in_basket()    # проверяем, что в корзине нет товаров
     basket_page.should_be_message_basket_is_empty()  # проверяем что есть текст о том, что корзина пуста 
+
+@pytest.mark.test_user_add_to_basket
+class TestUserAddToBasketFromProductPage():
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self):   # регистрируем нового пользователя 
+        page = LoginPage(self.browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес 
+        page.open()                      # открываем страницу
+        #page.go_to_login_page()          # выполняем метод страницы - переходим на страницу логина)
+        email = str(time.time()) + "@fakemail.org"
+        self.register_new_user(email, "123qweASD") # регистрируем нового пользователя
+        self.should_be_authorized_user() # проверяем, что пользователь зарегистрирован
+    
+    def test_user_cant_see_success_message(self, browser):
+        page = ProductPage(browser, link, 15)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес 
+        page.open()                      # открываем страницу
+        page.should_not_be_success_message()    # проверяем, что нет сообщения об успехе с помощью is_not_element_present
+ 
+    @pytest.mark.xfail
+    def test_user_can_add_product_to_basket(self, browser):
+        page = ProductPage(browser, link, 15)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес 
+        page.open()                      # открываем страницу
+        page.add_product_to_basket()     # нажимаем кнопку Добавить в корзину
+        page.solve_quiz_and_get_code()   # ввод ответа на мат.выражение
+        page.should_be_product_name_in_message_add_to_basket() # проверяем, что название товара в сообщении о добавлении товара, с тем, который добавили  
+        page.should_be_product_price_in_message_add_to_basket() # проверяем, что в сообщении о стоимости корзины стоимость корзины совпадает с ценой товара
+ 
