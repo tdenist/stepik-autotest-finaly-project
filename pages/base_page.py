@@ -15,14 +15,10 @@ class BasePage():
     def go_to_login_page(self):
         login_link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
         login_link.click()
-        #alert = self.browser.switch_to.alert
-        #alert.accept()
 
     def go_to_basket_page(self):
         basket_button = self.browser.find_element(*BasePageLocators.BASKET_BUTTON)
         basket_button.click()
-        #alert = self.browser.switch_to.alert
-        #alert.accept()
 		
     def open(self):
         self.browser.get(self.url)

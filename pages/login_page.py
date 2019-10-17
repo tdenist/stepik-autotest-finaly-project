@@ -23,7 +23,7 @@ class LoginPage(BasePage):
 		
     def register_new_user(self, email, password): # регистрация нового пользователя
         #self.go_to_login_page() # переходим на страницу логина
-        self.browser.self.browser.find_element(*LoginPageLocators.EMAIL_FILD).send_keys(email) # вводим e-mail
-        self.browser.self.browser.find_element(*LoginPageLocators.PASS_FILD).send_keys(password) # вводим пароль
-        self.browser.self.browser.find_element(*LoginPageLocators.PASS_FILD).send_keys(psssword) # повторяем ввод пароля
-        self.browser.self.browser.find_element(*LoginPageLocators.REGISTRATION_BUTTON).click() # нажимаем кнопку регистрации
+        self.browser.find_element(*LoginPageLocators.EMAIL_FILD).send_keys(email) # вводим e-mail
+        self.browser.find_element(*LoginPageLocators.PASS_FILD).send_keys(password) # вводим пароль
+        self.browser.find_element(*LoginPageLocators.PASS_FILD).send_keys(psssword) # повторяем ввод пароля
+        self.browser.find_element(*LoginPageLocators.REGISTRATION_BUTTON).click() # нажимаем кнопку регистрации
